@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Paths — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+
+  <header class="hero" style="padding: 3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Structured curriculum</p>
+      <h1>Learning paths</h1>
+      <p class="lead">Phases with done-when criteria, recommended labs, and progress tracking. Not sure where to start? <a href="quiz.html">Take the skill quiz</a>.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="progress-widget">
+      <strong>Your progress</strong>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span id="progressLabel" style="font-size:0.875rem;color:var(--text-muted)">0 of 0 phases complete</span>
+      <div class="cta-row" style="margin-top:0.75rem">
+        <button class="btn btn-secondary" id="exportProgress" type="button">Export progress (JSON)</button>
+      </div>
+    </div>
+
+    <div id="pathTabs">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tab-beginner">Complete Beginner</button>
+        <button class="tab-btn" data-tab="tab-intermediate">Intermediate</button>
+        <button class="tab-btn" data-tab="tab-schedule">Weekly schedule</button>
+        <button class="tab-btn" data-tab="tab-roadmap">12-month roadmap</button>
+        <button class="tab-btn" data-tab="tab-rooms">THM / HTB rooms</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-beginner">
+        <section class="section" id="beginner">
+          <div class="section-header">
+            <h2>Complete beginner path</h2>
+            <p>Each phase includes done-when criteria and specific lab recommendations.</p>
+          </div>
+          <div class="alert alert-warn" id="avoidEarly"></div>
+          <div id="beginnerPhases"></div>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-intermediate">
+        <section class="section">
+          <div class="section-header">
+            <h2>Intermediate &amp; advanced path</h2>
+          </div>
+          <div id="intermediatePhases"></div>
+        </section>
+        <section class="section">
+          <div class="section-header"><h2>Portfolio projects</h2></div>
+          <p>See <a href="projects.html">full walkthroughs</a> for step-by-step guides.</p>
+          <ul class="phase-concepts" id="portfolioList"></ul>
+        </section>
+        <section class="section">
+          <div class="section-header"><h2>Career titles</h2></div>
+          <div class="tag-list" id="careerTitles"></div>
+          <p style="margin-top:1rem"><a href="career.html">Salary guide &amp; résumé template →</a></p>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-schedule">
+        <section class="section">
+          <div class="section-header"><h2>Weekly study schedule (10 hrs/week)</h2></div>
+          <table class="data-table">
+            <thead><tr><th>Day</th><th>Time</th><th>Activity</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+          <p style="margin-top:1rem"><a href="downloads.html">Download printable schedule →</a></p>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-roadmap">
+        <section class="section">
+          <div class="section-header"><h2>12-month roadmap</h2></div>
+          <div class="roadmap">
+            <div class="roadmap-item"><strong>Months 1–2</strong> — Linux + computer basics</div>
+            <div class="roadmap-item"><strong>Months 3–5</strong> — Python programming</div>
+            <div class="roadmap-item"><strong>Month 6</strong> — Networking fundamentals</div>
+            <div class="roadmap-item"><strong>Months 7–9</strong> — TryHackMe Pre Security + Jr Pen Tester</div>
+            <div class="roadmap-item"><strong>Months 10–12</strong> — Web security (PortSwigger) + HTB modules</div>
+            <div class="roadmap-item"><strong>Year 2</strong> — AI fundamentals → OWASP LLM Top 10 → AIRT → HTB AI Red Teamer</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-rooms">
+        <section class="section">
+          <div class="section-header"><h2>TryHackMe &amp; HTB room checklists</h2>
+          <p>Track rooms per phase. Check off as you complete them.</p></div>
+          <div id="platformRooms"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="site-data-v3.js"></script>
+  <script src="site-data-v4.js"></script><script src="site-data-v5.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+  <script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("avoidEarly").innerHTML = `<strong>Avoid early on:</strong><ul style="margin:0.5rem 0 0;padding-left:1.25rem">${AVOID_EARLY.map(a => `<li>${a}</li>`).join("")}</ul>`;
+    document.getElementById("beginnerPhases").innerHTML = SiteUI.renderPhases(BEGINNER_PATH);
+    document.getElementById("intermediatePhases").innerHTML = SiteUI.renderPhases(INTERMEDIATE_PATH);
+    document.getElementById("portfolioList").innerHTML = PORTFOLIO_PROJECTS.map(p => `<li>${p}</li>`).join("");
+    document.getElementById("careerTitles").innerHTML = CAREER_TITLES.map(t => `<span class="tag">${t}</span>`).join("");
+    document.getElementById("scheduleBody").innerHTML = WEEKLY_SCHEDULE.map(r => `<tr><td>${r.day}</td><td>${r.time}</td><td>${r.activity}</td></tr>`).join("");
+
+    SiteUI.initTabs("pathTabs");
+    SiteUI.initProgressChecklist();
+    SiteUI.updateBookmarkButtons();
+    AcademyV2.bindPhaseNotes();
+    AcademyV2.renderPlatformRooms("platformRooms");
+    document.getElementById("exportProgress").addEventListener("click", () => SiteUI.exportProgress());
+
+    if (location.hash === "#beginner") document.querySelector('[data-tab="tab-beginner"]')?.click();
+    if (location.hash.startsWith("#phase") || location.hash.startsWith("#int")) {
+      document.querySelector('[data-tab="tab-beginner"]')?.click();
+      setTimeout(() => document.querySelector(location.hash)?.scrollIntoView({ behavior: "smooth" }), 200);
+    }
+  </script>
+</body>
+</html>

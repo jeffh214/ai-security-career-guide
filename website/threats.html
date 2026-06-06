@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threat Landscape — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+
+  <header class="hero" style="padding: 3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Know your adversary</p>
+      <h1>Threat landscape</h1>
+      <p class="lead">Attacker categories, operating systems, infrastructure, kill chains, and AI-specific strategies — framed for defensive awareness.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="section-header">
+        <h2>Attacker categories</h2>
+      </div>
+      <div class="card-grid" id="attackerCategories"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Operating systems attackers use</h2>
+        <p>Defenders should recognize artifacts and telemetry tied to each platform.</p>
+      </div>
+      <div id="attackerOs"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Attack kill chain (MITRE ATT&CK)</h2>
+        <p>Most attacks follow this sequence — with or without AI. <a href="https://attack.mitre.org/" target="_blank" rel="noopener">Full ATT&CK matrix ↗</a></p>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Step</th><th>Description</th></tr></thead>
+        <tbody id="killChain"></tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>AI-specific attack strategies</h2>
+        <p>Emerging TTPs targeting AI systems or using AI as a force multiplier. <a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS ↗</a></p>
+      </div>
+      <div class="glossary-grid" id="aiStrategies"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Scenario: Ransomware group workflow</h2>
+        <p>Composite 16-day attack with defender detection points.</p>
+      </div>
+      <div class="alert alert-info" style="font-size:0.9rem;line-height:1.7">
+        <strong>Day 1–7 Recon:</strong> Scan external IPs, scrape LinkedIn, LLM-drafted spear-phish.<br><br>
+        <strong>Day 8 Initial access:</strong> Fake M365 login (Evilginx), residential proxy login.<br><br>
+        <strong>Day 9–14 Lateral movement:</strong> BloodHound on Windows, path to Domain Admin, LLM summarizes SharePoint for high-value shares.<br><br>
+        <strong>Day 15 Exfil:</strong> Compress data, upload to S3 overnight, persistence via scheduled task.<br><br>
+        <strong>Day 16 Impact:</strong> Ransomware via GPO/PsExec, AI chatbot for negotiation.<br><br>
+        <strong>Detection:</strong> Impossible-travel login, unusual MFA, LDAP enumeration, mass file access, outbound data spike, shadow copy deletion.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Scenario: AI application target</h2>
+      </div>
+      <div class="alert alert-info" style="font-size:0.9rem;line-height:1.7">
+        <strong>Step 1:</strong> Map customer RAG chatbot API and vector DB.<br><br>
+        <strong>Step 2:</strong> Prompt injection extracts system prompt with API keys.<br><br>
+        <strong>Step 3:</strong> Tool abuse — agent queries CRM and emails export to attacker.<br><br>
+        <strong>Step 4:</strong> RAG poisoning via support ticket attachment indexed into knowledge base.<br><br>
+        <strong>Step 5:</strong> Poisoned content persists; data sold on dark web.<br><br>
+        <strong>Detection:</strong> Unusual agent tool volume, emails to unknown domains from bot account, spike in new document retrieval.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Ethical lab setup (mirror attackers legally)</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <ul class="phase-concepts">
+            <li><strong>Primary OS:</strong> Kali or Parrot in VirtualBox — isolated network</li>
+            <li><strong>Target lab:</strong> TryHackMe, HackTheBox, DVWA</li>
+            <li><strong>AI lab:</strong> AIRT Docker labs, local Ollama</li>
+            <li><strong>Windows lab:</strong> GOAD Active Directory homelab</li>
+            <li><strong>Monitoring:</strong> Wazuh or Elastic SIEM to see attacker artifacts in logs</li>
+          </ul>
+        </div>
+        <div class="cta-row" style="flex-direction:column;align-items:flex-start">
+          <a class="btn btn-secondary" href="https://tryhackme.com/" target="_blank" rel="noopener">TryHackMe ↗</a>
+          <a class="btn btn-secondary" href="https://www.hackthebox.com/" target="_blank" rel="noopener">HackTheBox ↗</a>
+          <a class="btn btn-secondary" href="https://0x4d31.github.io/airt/" target="_blank" rel="noopener">AIRT Labs ↗</a>
+          <a class="btn btn-secondary" href="https://www.virtualbox.org/" target="_blank" rel="noopener">VirtualBox ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="app.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("attackerCategories").innerHTML = ATTACKER_CATEGORIES.map(a => `
+      <article class="card">
+        <h3>${a.name}</h3>
+        <p>${a.desc}</p>
+      </article>`).join("");
+
+    document.getElementById("attackerOs").innerHTML = ATTACKER_OS.map(o => `
+      <article class="glossary-item" style="margin-bottom:1rem">
+        <h3>${o.url ? `<a href="${o.url}" target="_blank" rel="noopener">${o.name} ↗</a>` : o.name}</h3>
+        <p class="definition"><strong>Why attackers use it:</strong> ${o.why}</p>
+        <div class="example"><strong>Defender signals</strong>${o.signals}</div>
+      </article>`).join("");
+
+    document.getElementById("killChain").innerHTML = KILL_CHAIN.map(k =>
+      `<tr><td><strong>${k.step}</strong></td><td>${k.desc}</td></tr>`).join("");
+
+    document.getElementById("aiStrategies").innerHTML = AI_STRATEGIES.map(s => `
+      <article class="glossary-item">
+        <h3>${s.name}</h3>
+        <p class="definition"><strong>Attacker approach:</strong> ${s.attack}</p>
+        <div class="example"><strong>Defender countermeasure</strong>${s.defense}</div>
+      </article>`).join("");
+  </script>
+</body>
+</html>

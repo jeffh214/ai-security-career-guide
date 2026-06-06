@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethics & Legal — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Stay legal & ethical</p>
+      <h1>Ethics & legal boundaries</h1>
+      <p class="lead">What you can and cannot do. Essential reading before running any security tools.</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section">
+      <div class="alert alert-warn"><strong>Important:</strong> Unauthorized access to computer systems is a criminal offense in most countries. This academy is for defensive learning in legal lab environments only.</div>
+      <div class="section-header"><h2>Legal boundaries</h2></div>
+      <ul class="phase-concepts" id="legalList"></ul>
+      <div class="section-header"><h2>Responsible disclosure</h2></div>
+      <ul class="phase-concepts" id="responsibleList"></ul>
+      <div class="section-header"><h2>Personal conduct</h2></div>
+      <ul class="phase-concepts" id="personalList"></ul>
+      <div class="section-header"><h2>Legal lab environments</h2></div>
+      <div class="card-grid">
+        <article class="card"><h3>✓ Legal</h3><ul class="phase-concepts"><li>TryHackMe & HackTheBox</li><li>AIRT Docker labs</li><li>Your own VMs (VirtualBox)</li><li>Bug bounty (in-scope only)</li><li>Employer-authorized pentests</li></ul></article>
+        <article class="card"><h3>✗ Illegal</h3><ul class="phase-concepts"><li>Scanning strangers' networks</li><li>Accessing systems without permission</li><li>Deploying malware on real targets</li><li>Using stolen credentials</li><li>DDoS attacks of any kind</li></ul></article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="app.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("legalList").innerHTML = ETHICS_CONTENT.legal.map(l => `<li>${l}</li>`).join("");
+    document.getElementById("responsibleList").innerHTML = ETHICS_CONTENT.responsible.map(l => `<li>${l}</li>`).join("");
+    document.getElementById("personalList").innerHTML = ETHICS_CONTENT.personal.map(l => `<li>${l}</li>`).join("");
+  </script>
+</body>
+</html>

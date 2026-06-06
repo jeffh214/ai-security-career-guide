@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CompTIA SecAI+ Exam Prep — AI Security Career Academy</title>
+  <meta name="description" content="Free SecAI+ (CY0-001) study plan, domain notes, videos, flashcards, and practice quiz mapped to CompTIA exam objectives." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero hero-compact">
+    <div class="hero-inner">
+      <p class="kicker">Exam prep · CY0-001</p>
+      <h1>CompTIA SecAI+ prep</h1>
+      <p class="lead">Domain breakdown, curated videos &amp; courses, downloadable notes, flashcards, and practice quiz — mapped to the official SecAI+ objectives.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#downloads">Download study notes</a>
+        <a class="btn btn-secondary" href="cert-quiz.html">Practice quiz</a>
+        <a class="btn btn-ghost" href="flashcards.html">SecAI+ flashcards</a>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section">
+      <div class="card-grid" id="examFacts"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>Exam domains</h2>
+      <p>Study in weight order — Domain 2 (40%) deserves the most time.</p></div>
+      <div id="domainList"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>Recommended videos</h2></div>
+      <div id="secaiVideos"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>Courses &amp; references</h2></div>
+      <div class="two-col">
+        <div><h3>Free resources</h3><ul class="phase-concepts" id="freeResources"></ul></div>
+        <div><h3>Official &amp; paid</h3><ul class="phase-concepts" id="paidResources"></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>4-week study plan</h2></div>
+      <table class="data-table" id="studyPlanTable">
+        <thead><tr><th>Week</th><th>Focus</th><th>Hours</th><th>Tasks</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <button class="btn btn-secondary" type="button" id="dlSecaiPlan" style="margin-top:1rem">Download plan (.txt)</button>
+    </section>
+
+    <section class="section" id="downloads">
+      <div class="section-header"><h2>Downloadable prep material</h2></div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Domain study notes</h3>
+          <p>All four domains, topics, and academy cross-links in one printable file.</p>
+          <button class="btn btn-primary" type="button" id="dlSecaiNotes">Download notes</button>
+        </article>
+        <article class="card">
+          <h3>Career guide PDF</h3>
+          <p>Full AI security career guide with paths and attack definitions.</p>
+          <a class="btn btn-secondary" href="../AI-Security-Career-Guide.pdf" download>Download PDF</a>
+        </article>
+        <article class="card">
+          <h3>OWASP LLM quick ref</h3>
+          <p>High-yield for Domain 2.</p>
+          <button class="btn btn-secondary" type="button" data-dl="owasp-ref">Download</button>
+        </article>
+        <article class="card">
+          <h3>Practice quiz</h3>
+          <p>10-question SecAI+ domain review + OWASP &amp; security quizzes.</p>
+          <a class="btn btn-secondary" href="cert-quiz.html">Take quiz →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="alert alert-info">
+        <strong>Disclaimer:</strong> This page is independent study material — not affiliated with or endorsed by CompTIA.
+        Always download the official exam objectives from
+        <a href="https://www.comptia.org/en-us/certifications/secai/" target="_blank" rel="noopener">CompTIA SecAI+ ↗</a>
+        and use CertMaster for authorized practice exams.
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="site-data-v3.js"></script>
+  <script src="site-data-v4.js"></script>
+  <script src="site-data-v5.js"></script>
+  <script src="site-data-secai.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+  <script src="features-v2.js"></script>
+  <script src="features-v3.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const e = SECAI_EXAM;
+      document.getElementById("examFacts").innerHTML = `
+        <article class="card"><h3>${e.code}</h3><p>Exam code · ${e.version}</p></article>
+        <article class="card"><h3>${e.passing}</h3><p>Passing score</p></article>
+        <article class="card"><h3>60 min</h3><p>${e.questions}</p></article>
+        <article class="card"><h3>4 domains</h3><p>17% · 40% · 24% · 19%</p></article>`;
+
+      document.getElementById("domainList").innerHTML = SECAI_DOMAINS.map(d => `
+        <article class="glossary-item case-card">
+          <div class="case-meta"><span class="tag">${d.weight}</span><span class="tag">${d.id.toUpperCase()}</span></div>
+          <h3>${d.title}</h3>
+          <ul class="phase-concepts">${d.topics.map(t => `<li>${t}</li>`).join("")}</ul>
+          <div class="cta-row case-links">${d.academy.map(a =>
+            `<a class="btn btn-secondary" href="${a.href || a.url}" ${a.external ? 'target="_blank" rel="noopener"' : ""} style="font-size:0.8rem">${a.label}</a>`
+          ).join("")}</div>
+        </article>`).join("");
+
+      document.getElementById("secaiVideos").innerHTML = SECAI_RESOURCES.videos.map(v =>
+        typeof SiteUI !== "undefined"
+          ? `<div style="margin-bottom:1.5rem"><p class="tag">${v.topic}</p>${SiteUI.renderVideoPlayer({ watch: v.watch, ytId: v.ytId, title: v.label })}</div>`
+          : `<p><a href="${v.watch}" target="_blank" rel="noopener">${v.label}</a></p>`
+      ).join("");
+
+      document.getElementById("freeResources").innerHTML = SECAI_RESOURCES.free.map(r =>
+        `<li><a href="${r.url}" target="_blank" rel="noopener">${r.label} ↗</a> <span class="tag tag-free">${r.type}</span></li>`).join("");
+      document.getElementById("paidResources").innerHTML = [
+        ...SECAI_RESOURCES.official.map(r => `<li><a href="${r.url}" target="_blank" rel="noopener">${r.label} ↗</a> <span class="tag">${r.type}</span></li>`),
+        ...SECAI_RESOURCES.paid.map(r => `<li><a href="${r.url}" target="_blank" rel="noopener">${r.label} ↗</a> — ${r.note}</li>`),
+      ].join("");
+
+      document.querySelector("#studyPlanTable tbody").innerHTML = SECAI_STUDY_PLAN.map(w =>
+        `<tr><td>${w.week}</td><td>${w.domain}</td><td>${w.hours}</td><td><ul class="phase-concepts">${w.tasks.map(t => `<li>${t}</li>`).join("")}</ul></td></tr>`).join("");
+
+      document.getElementById("dlSecaiNotes").addEventListener("click", () => SiteUI.handleGeneratedDownload("secai-notes"));
+      document.getElementById("dlSecaiPlan").addEventListener("click", () => SiteUI.handleGeneratedDownload("secai-plan"));
+      document.querySelector("[data-dl]").addEventListener("click", (ev) => SiteUI.handleGeneratedDownload(ev.target.dataset.dl));
+    });
+  </script>
+</body>
+</html>

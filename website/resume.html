@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Résumé Builder — AI Security Career Academy</title>
+  <meta name="description" content="Build an AI security résumé from your learning progress and export as PDF." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero hero-compact">
+    <div class="hero-inner"><p class="kicker">Career</p><h1>Résumé builder</h1>
+    <p class="lead">Auto-fills completed phases from your progress. Edit, export, or print.</p></div>
+  </header>
+  <main id="main">
+    <section class="section two-col">
+      <form id="resumeForm" class="quiz-card" style="padding:1.5rem">
+        <div id="resumeFields"></div>
+        <div class="cta-row" style="margin-top:1rem">
+          <button class="btn btn-primary" type="button" id="exportResume">Download .txt</button>
+          <button class="btn btn-secondary" type="button" id="printResume">Print / PDF</button>
+        </div>
+      </form>
+      <div><h2>Preview</h2><pre id="resumePreview" class="code-block" style="max-height:none"></pre></div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("resumeFields").innerHTML = RESUME_SECTIONS.map(s => `
+      <label style="display:block;margin-bottom:1rem">${s.label}
+        <${s.type === "textarea" ? "textarea rows=\"3\"" : "input type=\"" + s.type + "\""} name="${s.id}" style="width:100%;padding:0.5rem;margin-top:0.35rem;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:var(--font)"></${s.type === "textarea" ? "textarea" : "input"}>
+      </label>`).join("");
+    document.addEventListener("DOMContentLoaded", () => AcademyV3.initResumeBuilder("resumeForm", "resumePreview"));
+  </script>
+</body>
+</html>

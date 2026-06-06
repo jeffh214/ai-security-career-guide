@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies — AI Security Career Academy</title>
+  <meta name="description" content="Real-world AI security incidents with linked labs and glossary terms." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Real-world incidents</p>
+      <h1>Case studies</h1>
+      <p class="lead">Public AI security failures — each linked to relevant labs and glossary terms for hands-on follow-up.</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section">
+      <div class="section-header"><h2>Incident timeline</h2></div>
+      <div class="incident-timeline" id="incidentTimeline"></div>
+    </section>
+    <section class="section">
+      <div class="section-header"><h2>Detailed case studies</h2></div>
+      <div id="caseStudies"></div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="site-data-v3.js"></script>
+  <script src="site-data-v4.js"></script>
+  <script src="site-data-v5.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+  <script src="features-v2.js"></script>
+  <script src="features-v3.js"></script>
+  <script>
+    document.getElementById("incidentTimeline").innerHTML = INCIDENT_TIMELINE.map(i =>
+      `<div class="incident-item"><span class="incident-date">${i.date}</span>${i.event}</div>`).join("");
+    document.getElementById("caseStudies").innerHTML = CASE_STUDIES.map(c => {
+      const links = typeof CASE_STUDY_LINKS !== "undefined" ? CASE_STUDY_LINKS[c.title] : null;
+      return `
+      <article class="glossary-item case-card">
+        <div class="case-meta">
+          <span class="tag">${c.year}</span>
+          <span class="tag">${c.type}</span>
+          ${c.owasp ? `<span class="tag">${c.owasp}</span>` : ""}
+        </div>
+        <h3><a href="${c.link}" target="_blank" rel="noopener">${c.title} ↗</a></h3>
+        <p class="definition">${c.summary}</p>
+        <div class="case-lesson"><strong>Lesson:</strong> ${c.lesson}</div>
+        ${links ? `<div class="cta-row case-links">
+          ${links.lab ? `<a class="btn btn-secondary" href="${links.lab}" style="font-size:0.8rem">${links.labLabel || "Try lab"}</a>` : ""}
+          ${links.glossary ? `<a class="btn btn-ghost" href="${links.glossary}" style="font-size:0.8rem">Glossary: ${links.term}</a>` : ""}
+          <a class="btn btn-ghost" href="flashcards.html" style="font-size:0.8rem">Interview flashcards</a>
+        </div>` : ""}
+      </article>`;
+    }).join("");
+  </script>
+</body>
+</html>

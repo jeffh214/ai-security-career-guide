@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Connect & learn</p>
+      <h1>Community & events</h1>
+      <p class="lead">Forums, Discord servers, conferences, and news sources for AI security professionals.</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section">
+      <div class="alert alert-info" style="margin-bottom:1.5rem">
+        <strong>Share your work:</strong> Export case studies as JSON and paste into a <a href="https://gist.github.com/" target="_blank" rel="noopener">GitHub Gist</a> or use <a href="sync.html">Profile Sync</a> to back up everything.
+        <button class="btn btn-secondary" type="button" id="exportCommunity" style="margin-left:0.5rem">Export community JSON</button>
+      </div>
+    </section>
+    <section class="section" id="communityContent"></section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="site-data-v3.js"></script>
+  <script src="site-data-v4.js"></script>
+  <script src="site-data-v5.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+  <script src="features-v2.js"></script>
+  <script src="features-v3.js"></script>
+  <script>
+    document.getElementById("communityContent").innerHTML = COMMUNITY_LINKS.map(cat => `
+      <div class="resource-category">
+        <h3>${cat.category}</h3>
+        ${cat.items.map(i => `
+          <div class="resource-item">
+            <a href="${i.url}" target="_blank" rel="noopener">${i.label} ↗</a>
+            ${SiteUI.bookmarkButton(i.url, i.label)}
+          </div>`).join("")}
+      </div>`).join("");
+    SiteUI.updateBookmarkButtons();
+    AcademyV3.initCommunityExport("exportCommunity");
+  </script>
+</body>
+</html>

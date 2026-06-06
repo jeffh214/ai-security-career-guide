@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+
+  <header class="hero" style="padding: 3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Curated links</p>
+      <h1>Resources</h1>
+      <p class="lead">Courses, platforms, tools, frameworks, certifications, and lab setup — organized by category with direct links.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section bookmarks-panel" id="savedSection" style="display:none">
+      <div class="section-header"><h2>Your saved bookmarks</h2></div>
+      <div id="savedBookmarks"></div>
+    </section>
+    <div class="filter-bar" id="filterBar"></div>
+    <div id="resourceContent"></div>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="app.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    const allTags = [...new Set(RESOURCE_CATEGORIES.flatMap(c => c.items.flatMap(i => i.tags)))].sort();
+
+    function renderResources(filter = "all") {
+      const container = document.getElementById("resourceContent");
+      container.innerHTML = RESOURCE_CATEGORIES.map(cat => {
+        const items = cat.items.filter(i => filter === "all" || i.tags.includes(filter));
+        if (!items.length) return "";
+        return `
+          <section class="resource-category" id="${cat.id}">
+            <h3>${cat.title}</h3>
+            ${items.map(i => `
+              <div class="resource-item">
+                <a href="${i.url}" target="_blank" rel="noopener">${i.label} ↗</a>
+                <div style="display:flex;align-items:center;gap:0.5rem">
+                  <div class="tag-list">${i.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+                  ${SiteUI.bookmarkButton(i.url, i.label)}
+                </div>
+              </div>`).join("")}
+          </section>`;
+      }).join("");
+      SiteUI.updateBookmarkButtons();
+    }
+
+    function renderSavedBookmarks() {
+      const list = SiteUI.getBookmarks();
+      const section = document.getElementById("savedSection");
+      if (!list.length) { section.style.display = "none"; return; }
+      section.style.display = "block";
+      document.getElementById("savedBookmarks").innerHTML = list.map(b => `
+        <div class="bookmark-item">
+          <a href="${b.url}" target="_blank" rel="noopener">${b.label}</a>
+          ${SiteUI.bookmarkButton(b.url, b.label)}
+        </div>`).join("");
+      SiteUI.updateBookmarkButtons();
+    }
+
+    document.getElementById("filterBar").innerHTML = `
+      <button class="filter-btn active" data-filter="all">All</button>
+      ${allTags.map(t => `<button class="filter-btn" data-filter="${t}">${t}</button>`).join("")}`;
+
+    document.getElementById("filterBar").addEventListener("click", e => {
+      if (!e.target.matches(".filter-btn")) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      renderResources(e.target.dataset.filter);
+    });
+
+    renderResources();
+    renderSavedBookmarks();
+  </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Security Career Academy</title>
+  <meta name="description" content="Structured learning paths from zero experience to AI security professional — courses, resources, attack glossary, and threat intelligence." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta property="og:title" content="AI Security Career Academy" />
+  <meta property="og:description" content="From zero to AI security professional — paths, labs, videos, flashcards." />
+  <meta property="og:image" content="og-image.svg" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Career guide · Hands-on labs · Free resources</p>
+      <h1 data-i18n="hero.title">Learn AI security from zero to job-ready</h1>
+      <p class="lead">Structured paths for beginners and intermediate learners. Curated links, attack definitions, case studies, interview prep, and weekly study plans.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="quiz.html" data-i18n="hero.cta.quiz">Take skill quiz</a>
+        <a class="btn btn-secondary" href="paths.html">Learning paths</a>
+        <a class="btn btn-secondary" href="resources.html">Resources</a>
+        <a class="btn btn-ghost" href="downloads.html">Downloads</a>
+      </div>
+      <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted)">Press <kbd>Ctrl+K</kbd> to search · <kbd>?</kbd> shortcuts · ◐ theme</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" aria-labelledby="dashboard-heading">
+      <div class="section-header"><h2 id="dashboard-heading">Your dashboard</h2></div>
+      <div id="homeDashboard"></div>
+    </section>
+
+    <section class="section" aria-labelledby="lanes-heading">
+      <div class="section-header">
+        <h2 id="lanes-heading">Three career lanes in AI security</h2>
+        <p>Most professionals eventually touch all three. Pick a lane to specialize, but build breadth first.</p>
+      </div>
+      <div class="card-grid" id="careerLanes"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Explore the academy</h2>
+      </div>
+      <div class="card-grid" id="featureGrid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="begin-heading">
+      <div class="section-header">
+        <h2 id="begin-heading">New to hacking or programming?</h2>
+        <p>Start with the Complete Beginner Path — Linux, Python, networking, then security, then AI security. Plan 12–18 months at 10–12 hrs/week.</p>
+      </div>
+      <div id="dynamicMonthly" class="alert alert-info"></div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="paths.html#beginner">View beginner path</a>
+        <a class="btn btn-secondary" href="quiz.html">Find my starting point</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="timeline-heading">
+      <div class="section-header">
+        <h2 id="timeline-heading">Realistic timeline</h2>
+        <p>At 10–12 hours per week.</p>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="data-table" id="timelineTable">
+          <thead><tr><th>Stage</th><th>Duration</th><th>Outcome</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="quick-resources">
+      <div class="section-header">
+        <h2 id="quick-resources">Essential free resources</h2>
+      </div>
+      <div class="card-grid" id="quickResources"></div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="section-header">
+        <h2 id="faq-heading">Frequently asked questions</h2>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="site-data-v3.js"></script>
+  <script src="site-data-v4.js"></script>
+  <script src="site-data-v5.js"></script>
+  <script src="site-data-secai.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+  <script src="features-v2.js"></script>
+  <script src="features-v3.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AcademyV3.renderDashboard("homeDashboard");
+      const progress = JSON.parse(localStorage.getItem("aiSecCareerProgress") || "{}");
+      const phases = [...BEGINNER_PATH, ...INTERMEDIATE_PATH];
+      const next = phases.find(p => !progress[p.id]) || phases[0];
+      const monthly = typeof PHASE_MONTHLY !== "undefined" ? PHASE_MONTHLY[next?.id] : null;
+      const el = document.getElementById("dynamicMonthly");
+      if (el && monthly) {
+        el.innerHTML = `<strong>This month — ${next.title}:</strong> ${monthly.tasks.join(" → ")} <a href="${monthly.link}">View phase →</a>`;
+      }
+    });
+
+    document.getElementById("careerLanes").innerHTML = CAREER_LANES.map(l => `
+      <article class="card">
+        <div class="card-icon">${l.icon}</div>
+        <h3>${l.title}</h3>
+        <p>${l.summary}</p>
+        <div class="tag-list">${l.examples.map(e => `<span class="tag">${e}</span>`).join("")}</div>
+      </article>`).join("");
+
+    const features = [
+      { title: "Videos", desc: "12 verified YouTube embeds with progress tracking", href: "videos.html", tag: "Verified" },
+      { title: "Interactive Labs", desc: "Prompt injection, RAG poisoning, CTF challenges", href: "labs.html", tag: "Hands-on" },
+      { title: "Flashcards", desc: "Spaced repetition for glossary & interview prep", href: "flashcards.html", tag: "Daily" },
+      { title: "Study Planner", desc: "Generate week-by-week plan + .ics calendar export", href: "planner.html", tag: "Calendar" },
+      { title: "Learning Paths", desc: "Phases with done-when criteria & lab links", href: "paths.html", tag: "Start here" },
+      { title: "Skill Quiz", desc: "Find your recommended starting phase", href: "quiz.html", tag: "Quiz" },
+      { title: "Cert Quizzes", desc: "OWASP LLM Top 10 & security fundamentals", href: "cert-quiz.html", tag: "Test" },
+      { title: "AI Tutor", desc: "Ask questions about the curriculum", href: "tutor.html", tag: "AI" },
+      { title: "Study Stats", desc: "Personal analytics dashboard", href: "analytics.html", tag: "Track" },
+      { title: "Jobs", desc: "Curated AI security job search links", href: "jobs.html", tag: "Career" },
+      { title: "Case Studies", desc: "Real-world AI security incidents", href: "case-studies.html", tag: "News" },
+      { title: "Downloads", desc: "PDF guide, checklists, progress export", href: "downloads.html", tag: "Offline" },
+      { title: "Study Timer", desc: "Pomodoro focus sessions with auto logging", href: "timer.html", tag: "Focus" },
+      { title: "OWASP Matcher", desc: "Match attack scenarios to LLM Top 10", href: "match-quiz.html", tag: "Drill" },
+      { title: "Compliance", desc: "NIST AI RMF, EU AI Act, ISO 42001", href: "compliance.html", tag: "Governance" },
+      { title: "Bug Bounty", desc: "Platforms, AI targets, report tips", href: "bounty.html", tag: "Offensive" },
+      { title: "Badges & Streaks", desc: "Gamified milestones and daily streaks", href: "badges.html", tag: "Motivation" },
+      { title: "Profile Sync", desc: "Export/import learning profile JSON", href: "sync.html", tag: "Backup" },
+      { title: "MITRE ATLAS", desc: "Adversarial ML/AI attack taxonomy", href: "atlas.html", tag: "Threat intel" },
+      { title: "Agentic Top 10", desc: "OWASP risks for autonomous AI agents", href: "agentic.html", tag: "Agents" },
+      { title: "Résumé Builder", desc: "Generate résumé from your progress", href: "resume.html", tag: "Career" },
+      { title: "Certificate", desc: "Printable completion certificate", href: "certificate.html", tag: "Achievement" },
+      { title: "SecAI+ Prep", desc: "CompTIA CY0-001 study plan, notes, videos & quiz", href: "secai.html", tag: "Cert" },
+    ];
+    document.getElementById("featureGrid").innerHTML = features.map(f => `
+      <article class="card">
+        <span class="tag">${f.tag}</span>
+        <h3><a href="${f.href}">${f.title}</a></h3>
+        <p>${f.desc}</p>
+      </article>`).join("");
+
+    document.querySelector("#timelineTable tbody").innerHTML = BEGINNER_TIMELINE.map(r =>
+      `<tr><td>${r.stage}</td><td>${r.duration}</td><td>${r.outcome}</td></tr>`).join("");
+
+    const freeItems = RESOURCE_CATEGORIES.find(c => c.id === "free-core")?.items.slice(0, 6) || [];
+    document.getElementById("quickResources").innerHTML = freeItems.map(r => `
+      <article class="card">
+        <span class="tag tag-free">Free</span>
+        <h3><a href="${r.url}" target="_blank" rel="noopener">${r.label}</a></h3>
+        <div class="tag-list">${r.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+      </article>`).join("");
+
+    document.getElementById("faqList").innerHTML = FAQ.map(f => `
+      <details class="faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
+  </script>
+</body>
+</html>

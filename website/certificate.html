@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate — AI Security Career Academy</title>
+  <meta name="description" content="Earn a completion certificate when you finish all beginner path phases." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero hero-compact">
+    <div class="hero-inner"><p class="kicker">Achievement</p><h1>Completion certificate</h1>
+    <p class="lead">Complete all beginner path phases, then generate a printable certificate for your portfolio or LinkedIn.</p></div>
+  </header>
+  <main id="main">
+    <section class="section quiz-panel">
+      <div class="quiz-card" style="padding:1.5rem">
+        <div id="certStatus"></div>
+        <button class="btn btn-primary" type="button" id="exportCert" style="margin-top:1rem">Generate certificate PDF</button>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const progress = JSON.parse(localStorage.getItem("aiSecCareerProgress") || "{}");
+      const done = BEGINNER_PATH.filter(p => progress[p.id]).length;
+      document.getElementById("certStatus").innerHTML = `
+        <div class="alert ${done >= BEGINNER_PATH.length ? "alert-info" : "alert-warn"}">
+          <strong>${done} / ${BEGINNER_PATH.length}</strong> beginner phases complete.
+          ${done >= BEGINNER_PATH.length ? " You're eligible!" : " Mark phases complete on the Learning Paths page."}
+        </div>`;
+      document.getElementById("exportCert").addEventListener("click", () => AcademyV3.exportCertificate());
+    });
+  </script>
+</body>
+</html>

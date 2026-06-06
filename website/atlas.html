@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MITRE ATLAS — AI Security Career Academy</title>
+  <meta name="description" content="MITRE ATLAS adversarial ML/AI attack techniques mapped to OWASP LLM Top 10." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero hero-compact">
+    <div class="hero-inner"><p class="kicker">Threat taxonomy</p><h1>MITRE ATLAS</h1>
+    <p class="lead">Adversarial Threat Landscape for AI Systems — use alongside OWASP LLM Top 10 for professional reporting.</p>
+    <p class="lead" style="font-size:0.95rem"><a href="https://atlas.mitre.org/" target="_blank" rel="noopener">Official ATLAS site ↗</a></p></div>
+  </header>
+  <main id="main"><section class="section" id="atlasList"></section></main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("atlasList").innerHTML = `<div class="card-grid">${MITRE_ATLAS.map(t => `
+      <article class="card"><span class="tag">${t.id}</span><span class="tag">${t.tactic}</span>
+      <h3>${t.name}</h3><p>${t.desc}</p>
+      ${t.owasp !== "—" ? `<p style="font-size:0.85rem;color:var(--text-muted)">Maps to: ${t.owasp}</p>` : ""}
+      </article>`).join("")}</div>`;
+  </script>
+</body>
+</html>

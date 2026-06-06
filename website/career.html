@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career & Salary — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Career planning</p>
+      <h1>Career & salary guide</h1>
+      <p class="lead">Roles, salary ranges (US), requirements, and a résumé template for AI security positions.</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section">
+      <div class="section-header"><h2>Job titles & salary ranges (US, 2025–2026)</h2>
+        <p>Ranges vary by location, company size, and clearance requirements. Remote roles often pay 85–100% of SF/NYC rates.</p>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Title</th><th>Experience</th><th>Salary (USD)</th><th>Key requirements</th></tr></thead>
+        <tbody id="salaryTable"></tbody>
+      </table>
+    </section>
+    <section class="section">
+      <div class="section-header"><h2>Career lanes</h2></div>
+      <div class="card-grid" id="careerLanes"></div>
+    </section>
+    <section class="section">
+      <div class="section-header">
+        <h2>AI security résumé template</h2>
+        <p>Copy and customize. Replace bracketed sections with your real experience.</p>
+      </div>
+      <div class="code-block" id="resumeBlock"></div>
+      <button class="btn btn-primary" id="copyResume" type="button">Copy template</button>
+      <button class="btn btn-secondary" id="downloadResume" type="button">Download .txt</button>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="app.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("salaryTable").innerHTML = SALARY_ROLES.map(r =>
+      `<tr><td><strong>${r.title}</strong></td><td>${r.experience}</td><td>${r.salary}</td><td>${r.requirements}</td></tr>`).join("");
+    document.getElementById("careerLanes").innerHTML = CAREER_LANES.map(l => `
+      <article class="card"><div class="card-icon">${l.icon}</div><h3>${l.title}</h3><p>${l.summary}</p>
+      <div class="tag-list">${l.examples.map(e => `<span class="tag">${e}</span>`).join("")}</div></article>`).join("");
+    document.getElementById("resumeBlock").textContent = RESUME_TEMPLATE;
+    document.getElementById("copyResume").addEventListener("click", () => {
+      navigator.clipboard.writeText(RESUME_TEMPLATE);
+      document.getElementById("copyResume").textContent = "Copied!";
+      setTimeout(() => document.getElementById("copyResume").textContent = "Copy template", 2000);
+    });
+    document.getElementById("downloadResume").addEventListener("click", () => SiteUI.handleGeneratedDownload("resume"));
+  </script>
+</body>
+</html>

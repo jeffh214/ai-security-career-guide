@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Timer — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner"><p class="kicker">Focus</p><h1>Pomodoro study timer</h1>
+    <p class="lead">25-minute focus sessions. Completing a session logs study time to your analytics.</p></div>
+  </header>
+  <main id="main">
+    <section class="section timer-panel">
+      <div class="timer-display" id="pomDisplay" aria-live="polite">25:00</div>
+      <button class="btn btn-primary" id="pomBtn" type="button" data-i18n="timer.start">Start focus</button>
+      <p style="margin-top:1.5rem;color:var(--text-muted);font-size:0.9rem">Pair with <a href="paths.html">today's phase</a> or <a href="flashcards.html">flashcards</a>.</p>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", () => AcademyV2.initPomodoro("pomDisplay", "pomBtn"));</script>
+</body>
+</html>

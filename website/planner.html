@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Planner — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner"><p class="kicker">Calendar export</p><h1>Weekly study planner</h1>
+    <p class="lead">Generate a week-by-week plan and download as .ics for Google Calendar or Outlook.</p></div>
+  </header>
+  <main id="main">
+    <form id="plannerForm" class="alert alert-info" style="display:grid;gap:1rem;max-width:480px">
+      <label>Start phase <select name="startPhase" id="startPhase"></select></label>
+      <label>Hours per week <input name="hours" type="number" value="10" min="1" max="40" style="width:80px;margin-left:0.5rem" /></label>
+      <label>Total weeks <input name="weeks" type="number" value="12" min="4" max="52" style="width:80px;margin-left:0.5rem" /></label>
+      <label>Start date <input name="startDate" type="date" /></label>
+      <button class="btn btn-primary" type="submit">Generate plan</button>
+    </form>
+    <div id="plannerOut" style="margin-top:2rem"></div>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", () => AcademyFeatures.initPlanner("plannerForm", "plannerOut"));</script>
+</body>
+</html>

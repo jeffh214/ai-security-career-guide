@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Personal resume source files (contain private contact info — not needed for the site)
+resume_extract.json
+AI-Security-Career-Guide.docx
+AI-Security-Career-Guide.pdf

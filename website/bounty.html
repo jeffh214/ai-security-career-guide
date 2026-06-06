@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bug Bounty Guide — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero" style="padding:3rem 1.5rem 3.5rem">
+    <div class="hero-inner"><p class="kicker">Offensive lane</p><h1>Bug bounty starter guide</h1>
+    <p class="lead" id="bountyIntro"></p></div>
+  </header>
+  <main id="main">
+    <section class="section"><h2>Platforms</h2><div class="card-grid" id="bountyPlatforms"></div></section>
+    <section class="section"><h2>AI/LLM targets to look for</h2><ul class="phase-concepts" id="bountyTargets"></ul></section>
+    <section class="section"><h2>Report writing tips</h2><ul class="phase-concepts" id="bountyTips"></ul></section>
+    <section class="section"><div class="alert alert-warn" id="bountyLegal"></div></section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const g = BUG_BOUNTY_GUIDE;
+      document.getElementById("bountyIntro").textContent = g.intro;
+      document.getElementById("bountyPlatforms").innerHTML = g.platforms.map((p) => `
+        <article class="card"><h3><a href="${p.url}" target="_blank" rel="noopener">${p.name} ↗</a></h3><p>${p.desc}</p></article>`).join("");
+      document.getElementById("bountyTargets").innerHTML = g.aiTargets.map((t) => `<li>${t}</li>`).join("");
+      document.getElementById("bountyTips").innerHTML = g.reportTips.map((t) => `<li>${t}</li>`).join("");
+      document.getElementById("bountyLegal").innerHTML = `<strong>Legal:</strong> ${g.legal} <a href="ethics.html">Ethics page →</a>`;
+    });
+  </script>
+</body>
+</html>

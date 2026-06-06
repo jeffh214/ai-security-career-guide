@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic AI Top 10 — AI Security Career Academy</title>
+  <meta name="description" content="OWASP Agentic AI Top 10 — security risks for autonomous tool-using AI agents." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+  <header class="hero hero-compact">
+    <div class="hero-inner"><p class="kicker">Autonomous agents</p><h1>OWASP Agentic AI Top 10</h1>
+    <p class="lead">Security risks specific to tool-using, multi-step AI agents — the next frontier after chatbot security.</p>
+    <p class="lead" style="font-size:0.95rem"><a href="https://genai.owasp.org/" target="_blank" rel="noopener">OWASP GenAI Project ↗</a> · <a href="labs.html">Try agent multi-turn lab →</a></p></div>
+  </header>
+  <main id="main"><section class="section" id="agenticList"></section></main>
+  <footer class="site-footer"></footer>
+  <script src="site-data.js"></script><script src="site-data-extra.js"></script><script src="site-data-v3.js"></script><script src="site-data-v4.js"></script><script src="site-data-v5.js"></script><script src="app.js"></script><script src="features.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    document.getElementById("agenticList").innerHTML = AGENTIC_TOP_10.map(a => `
+      <article class="glossary-item"><h3><span class="tag">${a.id}</span> ${a.name}</h3><p class="definition">${a.desc}</p></article>`).join("");
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attack Glossary — AI Security Career Academy</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" id="siteNav"></nav>
+
+  <header class="hero" style="padding: 3rem 1.5rem 3.5rem">
+    <div class="hero-inner">
+      <p class="kicker">Definitions &amp; examples</p>
+      <h1>Attack glossary</h1>
+      <p class="lead">LLM/agent security and classic adversarial ML — plain-language definitions with real-world attack examples.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="filter-bar" id="glossaryFilter"></div>
+    <div id="glossaryTabs">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tab-llm">LLM &amp; Agent Security</button>
+        <button class="tab-btn" data-tab="tab-ml">Adversarial ML</button>
+        <button class="tab-btn" data-tab="tab-frameworks">Framework mapping</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-llm">
+        <section class="section">
+          <div class="section-header">
+            <h2>LLM &amp; agent security (current hot niche)</h2>
+            <p>Prompt injection, tool abuse, RAG poisoning, jailbreaking, and model extraction.</p>
+          </div>
+          <div class="glossary-grid" id="llmGlossary"></div>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-ml">
+        <section class="section">
+          <div class="section-header">
+            <h2>Classic adversarial ML (production systems)</h2>
+            <p>Evasion, poisoning, backdoors, membership inference, and model inversion — critical wherever ML makes automated decisions.</p>
+          </div>
+          <div class="glossary-grid" id="mlGlossary"></div>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="tab-frameworks">
+        <section class="section">
+          <div class="section-header">
+            <h2>Map findings to industry frameworks</h2>
+          </div>
+          <div class="card-grid">
+            <article class="card">
+              <h3><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener">OWASP LLM Top 10 ↗</a></h3>
+              <p>Top risks in LLM applications — prompt injection (LLM01), sensitive disclosure (LLM02), supply chain (LLM03), poisoning (LLM04), and more.</p>
+            </article>
+            <article class="card">
+              <h3><a href="https://genai.owasp.org/" target="_blank" rel="noopener">OWASP Agentic AI Top 10 ↗</a></h3>
+              <p>Risks in autonomous tool-using agents — unauthorized tool use, goal hijacking, memory poisoning.</p>
+            </article>
+            <article class="card">
+              <h3><a href="https://atlas.mitre.org/" target="_blank" rel="noopener">MITRE ATLAS ↗</a></h3>
+              <p>Adversarial ML tactics and techniques — maps to OWASP LLM risks (e.g. AML.T0051 Prompt Injection).</p>
+            </article>
+            <article class="card">
+              <h3><a href="https://attack.mitre.org/" target="_blank" rel="noopener">MITRE ATT&CK ↗</a></h3>
+              <p>Traditional cyber attack tactics — recon through impact. Foundation for understanding non-AI attack chains.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="site-data.js"></script>
+  <script src="site-data-extra.js"></script>
+  <script src="app.js"></script><script src="features-v2.js"></script><script src="features-v3.js"></script>
+  <script>
+    let gFilter = "all";
+    function renderGlossary(items) {
+      const q = gFilter.toLowerCase();
+      const filtered = q === "all" ? items : items.filter(g =>
+        g.term.toLowerCase().includes(q) || g.category.toLowerCase().includes(q) ||
+        (g.owasp && g.owasp.toLowerCase().includes(q)));
+      return filtered.map(g => `
+        <article class="glossary-item">
+          <h3>${g.term}</h3>
+          <div class="glossary-meta">
+            <span class="tag">${g.category}</span>
+            ${g.owasp ? `<span class="tag">${g.owasp}</span>` : ""}
+          </div>
+          <p class="definition">${g.definition}</p>
+          <div class="example"><strong>Example</strong>${g.example}</div>
+        </article>`).join("") || `<p style="color:var(--text-muted)">No matches.</p>`;
+    }
+    function refreshGlossary() {
+      document.getElementById("llmGlossary").innerHTML = renderGlossary(GLOSSARY_LLM);
+      document.getElementById("mlGlossary").innerHTML = renderGlossary(GLOSSARY_ML);
+    }
+    document.getElementById("glossaryFilter").innerHTML = `
+      <button class="filter-btn active" data-gf="all">All</button>
+      <button class="filter-btn" data-gf="prompt">Prompt</button>
+      <button class="filter-btn" data-gf="rag">RAG</button>
+      <button class="filter-btn" data-gf="agent">Agent</button>
+      <button class="filter-btn" data-gf="poison">Poison</button>
+      <button class="filter-btn" data-gf="evasion">Evasion</button>`;
+    document.getElementById("glossaryFilter").addEventListener("click", e => {
+      if (!e.target.matches("[data-gf]")) return;
+      document.querySelectorAll("[data-gf]").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      gFilter = e.target.dataset.gf;
+      refreshGlossary();
+    });
+    refreshGlossary();
+    SiteUI.initTabs("glossaryTabs");
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "ai-security-career-academy",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build-api": "node build-content-api.js",
+    "check-links": "node check-links.js"
+  }
+}
